@@ -35,20 +35,20 @@ public class PanelCover extends javax.swing.JPanel {
     }
 
     private void init() {
-        title = new JLabel("Welcome Back!");
+        title = new JLabel("Bienvenido!");
         title.setFont(new Font("sansserif", 1, 30));
         title.setForeground(new Color(245, 245, 245));
         add(title);
-        description = new JLabel("To keep connected with us please");
+        description = new JLabel("Para mantenerse en contacto con nosotros");
         description.setForeground(new Color(245, 245, 245));
         add(description);
-        description1 = new JLabel("login with your personal info");
+        description1 = new JLabel("inicie sesión con sus datos personales");
         description1.setForeground(new Color(245, 245, 245));
         add(description1);
         button = new ButtonOutLine();
         button.setBackground(new Color(255, 255, 255));
         button.setForeground(new Color(255, 255, 255));
-        button.setText("SIGN IN");
+        button.setText("INGRESAR");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -77,7 +77,7 @@ public class PanelCover extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
-        GradientPaint gra = new GradientPaint(0, 0, new Color(35, 166, 97), 0, getHeight(), new Color(22, 116, 66));
+        GradientPaint gra = new GradientPaint(0, 0, new Color(37, 150, 190), 0, getHeight(), new Color(0, 0, 70));
         g2.setPaint(gra);
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(grphcs);
@@ -103,9 +103,9 @@ public class PanelCover extends javax.swing.JPanel {
 
     private void login(boolean login) {
         if (this.isLogin != login) {
-            title.setText("Welcome Back!");
-            description.setText("To keep connected with us please");
-            description1.setText("login with your personal info");
+            title.setText("Bienvenido!");
+            description.setText("Para mantenerse en contacto con nosotros");
+            description1.setText("inicie sesión con sus datos personales");
             }
             this.isLogin = login;
         }

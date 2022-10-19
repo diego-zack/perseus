@@ -114,7 +114,7 @@ public class Main extends javax.swing.JFrame {
                 this.dispose();
                 MainSystem.main(user);
             } else {
-                showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
+                showMessage(Message.MessageType.ERROR, "Correo o Contraseña incorrecta");
             }
 
         } catch (SQLException e) {

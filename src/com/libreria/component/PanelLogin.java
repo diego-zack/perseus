@@ -36,29 +36,29 @@ public class PanelLogin extends javax.swing.JLayeredPane {
 
     private void initLogin(ActionListener eventLogin) {
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
-        JLabel label = new JLabel("Sign In");
+        JLabel label = new JLabel("Ingresar");
         label.setFont(new Font("sansserif", 1, 30));
-        label.setForeground(new Color(7, 164, 121));
+        label.setForeground(new Color(0, 90, 150));
         login.add(label);
         MyTextField txtEmail = new MyTextField();
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/libreria/icon/mail.png")));
-        txtEmail.setHint("Email");
+        txtEmail.setHint("Correo");
         login.add(txtEmail, "w 60%");
         MyPasswordField txtPass = new MyPasswordField();
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/libreria/icon/pass.png")));
-        txtPass.setHint("Password");
+        txtPass.setHint("Contraseña");
         login.add(txtPass, "w 60%");
-        JButton cmdForget = new JButton("Forgot your password ?");
-        cmdForget.setForeground(new Color(100, 100, 100));
+        JButton cmdForget = new JButton("¿Olvidaste tu contraseña?");
+        cmdForget.setForeground(new Color(0, 90, 150));
         cmdForget.setFont(new Font("sansserif", 1, 12));
         cmdForget.setContentAreaFilled(false);
         cmdForget.setCursor(new Cursor(Cursor.HAND_CURSOR));
         login.add(cmdForget);
         Button cmd = new Button();
-        cmd.setBackground(new Color(7, 164, 121));
+        cmd.setBackground(new Color(0, 90, 150));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.addActionListener(eventLogin);
-        cmd.setText("SIGN IN");
+        cmd.setText("INGRESAR");
         login.add(cmd, "w 40%, h 40");
         cmd.addActionListener(new ActionListener() {
             @Override
