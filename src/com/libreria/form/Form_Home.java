@@ -15,7 +15,7 @@ public class Form_Home extends javax.swing.JPanel {
         card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/libreria/icon/stock.png")), "Stock Total", "$200000", "Increased by 60%"));
         card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/libreria/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
         card3.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/libreria/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
-        //  add row table
+        //  add row tabl    e
         spTable.setVerticalScrollBar(new ScrollBar());
         spTable.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable.getViewport().setBackground(Color.WHITE);
