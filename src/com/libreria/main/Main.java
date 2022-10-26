@@ -37,7 +37,6 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
     }
-
     private void init() {
         service = new ServiceUser();
         layout = new MigLayout("fill, insets 0");

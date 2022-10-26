@@ -20,7 +20,7 @@ public class Table extends JTable {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
                 TableHeader header = new TableHeader(o + "");
-                if (i1 == 4) {
+                if (i1 == 7) {
                     header.setHorizontalAlignment(JLabel.CENTER);
                 }
                 return header;
@@ -29,7 +29,7 @@ public class Table extends JTable {
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int i, int i1) {
-                if (i1 != 4) {
+                if (i1 != 7) {
                     Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, i, i1);
                     com.setBackground(Color.WHITE);
                     setBorder(noFocusBorder);
@@ -44,7 +44,7 @@ public class Table extends JTable {
                     CellStatus cell = new CellStatus(type);
                     return cell;
                 }
-            }
+            };
         });
     }
 
@@ -54,18 +54,18 @@ public class Table extends JTable {
     }
 
     public void setVerticalScrollBar(ScrollBar scrollBar) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not setVerticalScrollBar yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public Object getVerticalScrollBar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not getVerticalScrollBar yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public Object getViewport() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not getViewport yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public void setCorner(String UPPER_RIGHT_CORNER, JPanel p) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not setCorner yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

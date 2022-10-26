@@ -3,10 +3,12 @@ package com.libreria.model;
 public class ModelProduct {
     
     private int id;
-    private String codigo;
-    private String nombre;
+    private int codigo;
+    private String descripcion;
     private Double precio;
-    private int cantidad;
+    private int stock;
+    private String proveedor;
+    private String marca;
 
     public int getId() {
         return id;
@@ -16,20 +18,20 @@ public class ModelProduct {
         this.id = id;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Double getPrecio() {
@@ -40,14 +42,27 @@ public class ModelProduct {
         this.precio = precio;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getStock() {
+        return stock;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
-    
-    
-    
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 }

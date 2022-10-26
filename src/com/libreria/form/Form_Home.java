@@ -1,43 +1,54 @@
 package com.libreria.form;
 
 import com.libreria.model.ModelCard;
-import com.libreria.model.StatusType;
+import com.libreria.model.ModelProduct;
+import com.libreria.service.ServiceProductos;
 import com.libreria.swing.ScrollBar;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class Form_Home extends javax.swing.JPanel {
+    
+    ArrayList<ModelProduct> productos = ServiceProductos.getAllProductos();
 
     public Form_Home() {
         initComponents();
         card1.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/libreria/icon/stock.png")), "Stock Total", "$200000", "Increased by 60%"));
         card2.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/libreria/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
         card3.setData(new ModelCard(new ImageIcon(getClass().getResource("/com/libreria/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
-        //  add row tabl    e
+        
         spTable.setVerticalScrollBar(new ScrollBar());
         spTable.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable.getViewport().setBackground(Color.WHITE);
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        table.addRow(new Object[]{"Mike Bhand", "mikebhand@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+        
+        pintarTabla(this.productos);
+    }   
+    
+    public void pintarTabla(ArrayList<ModelProduct> productos){
+        
+        
+        if(productos.isEmpty()){System.out.println("Lista Vacia");}
+        else{
+            for(ModelProduct producto : productos){
+               
+               table.addRow(new Object[]{
+               String.valueOf(producto.getId()),
+               String.valueOf(producto.getCodigo()),
+               String.valueOf(producto.getDescripcion()),
+               String.valueOf(producto.getPrecio()),
+               String.valueOf(producto.getStock()),
+               String.valueOf(producto.getProveedor()),
+               String.valueOf(producto.getMarca())});
+                
+            }
+        }
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,11 +58,8 @@ public class Form_Home extends javax.swing.JPanel {
         card2 = new com.libreria.component.Card();
         card3 = new com.libreria.component.Card();
         panelBorder1 = new com.libreria.swing.PanelBorder();
-        jLabel1 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
         table = new com.libreria.swing.Table();
-
-        setBackground(new java.awt.Color(242, 242, 242));
 
         panel.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
@@ -69,22 +77,16 @@ public class Form_Home extends javax.swing.JPanel {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Standard Table Design");
-
-        spTable.setBorder(null);
-
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Email", "User Type", "Joined", "Status"
+                "ID", "CODIGO", "DESCRIPCION", "PRECIO", "STOCK", "PROVEEDOR", "MARCA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -98,22 +100,16 @@ public class Form_Home extends javax.swing.JPanel {
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(spTable))
+                .addContainerGap()
+                .addComponent(spTable)
                 .addContainerGap())
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -143,10 +139,9 @@ public class Form_Home extends javax.swing.JPanel {
     private com.libreria.component.Card card1;
     private com.libreria.component.Card card2;
     private com.libreria.component.Card card3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane panel;
     private com.libreria.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    private com.libreria.swing.Table table;
+    public com.libreria.swing.Table table;
     // End of variables declaration//GEN-END:variables
 }

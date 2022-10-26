@@ -37,11 +37,14 @@ public class MainSystem extends javax.swing.JFrame {
                     setForm(form2);
                 } else if (index == 3) {
                     setForm(form3);
+                }else if(index == 12){
+                    System.exit(0);
                 }
             }
         });
 	setForm(new Form_Home());
     }
+    
 
     private void setForm(JComponent com) {
         mainPanel.removeAll();

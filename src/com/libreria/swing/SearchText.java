@@ -13,10 +13,10 @@ public class SearchText extends JTextField {
 
     public SearchText() {
         setBorder(new EmptyBorder(5, 5, 5, 5));
-        setSelectionColor(new Color(220, 204, 182));
+        setSelectionColor(new Color(220, 204, 182));   
     }
-    private final String hint = "Search here ...";
-
+    private final String hint = "Busqueda...";
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -32,5 +32,6 @@ public class SearchText extends JTextField {
             g.setColor(new Color(c2, true));
             g.drawString(hint, ins.left, h / 2 + fm.getAscent() / 2 - 2);
         }
+        
     }
 }
