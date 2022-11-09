@@ -24,6 +24,7 @@ public class IngresarProducto extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         PanelIngresoProducto = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(915, 600));
 
@@ -34,13 +35,20 @@ public class IngresarProducto extends javax.swing.JPanel {
 
         jLabel2.setText("HOOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
+        jLabel3.setText("adios");
+
         javax.swing.GroupLayout PanelIngresoProductoLayout = new javax.swing.GroupLayout(PanelIngresoProducto);
         PanelIngresoProducto.setLayout(PanelIngresoProductoLayout);
         PanelIngresoProductoLayout.setHorizontalGroup(
             PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelIngresoProductoLayout.createSequentialGroup()
-                .addGap(354, 354, 354)
-                .addComponent(jLabel2)
+                .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelIngresoProductoLayout.createSequentialGroup()
+                        .addGap(354, 354, 354)
+                        .addComponent(jLabel2))
+                    .addGroup(PanelIngresoProductoLayout.createSequentialGroup()
+                        .addGap(411, 411, 411)
+                        .addComponent(jLabel3)))
                 .addContainerGap(393, Short.MAX_VALUE))
         );
         PanelIngresoProductoLayout.setVerticalGroup(
@@ -48,7 +56,9 @@ public class IngresarProducto extends javax.swing.JPanel {
             .addGroup(PanelIngresoProductoLayout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addComponent(jLabel2)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addComponent(jLabel3)
+                .addContainerGap(209, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -81,5 +91,6 @@ public class IngresarProducto extends javax.swing.JPanel {
     public javax.swing.JPanel PanelIngresoProducto;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
