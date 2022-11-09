@@ -11,17 +11,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author naxch
- */
 public class ServiceProductos {
     
     public static ArrayList getAllProductos(){
         
         ArrayList<ModelProduct> productos = new ArrayList();
         ModelProduct p;
-        Connection con = DatabaseConnection.getInstance().getConnection();  
+        Connection con = DatabaseConnection.getInstance().getConnection(); 
+        
+        
         
         try(PreparedStatement ps = con.prepareStatement(
                 "SELECT producto.id,codigo,producto.descripcion,precio,stock,proveedor.descripcion,marca.descripcion "

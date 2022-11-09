@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Form_Home extends javax.swing.JPanel {
     
-    ArrayList<ModelProduct> productos = ServiceProductos.getAllProductos();
+    public ArrayList<ModelProduct> productos = ServiceProductos.getAllProductos();
 
     public Form_Home() {
         initComponents();
@@ -30,25 +32,35 @@ public class Form_Home extends javax.swing.JPanel {
         pintarTabla(this.productos);
     }   
     
-    public void pintarTabla(ArrayList<ModelProduct> productos){
+    public static void pintarTabla(ArrayList<ModelProduct> productos){
         
+        limpiarTable(table);
         
-        if(productos.isEmpty()){System.out.println("Lista Vacia");}
-        else{
-            for(ModelProduct producto : productos){
+        if(!productos.isEmpty()){
+            for(ModelProduct producto : productos){         
                
-               table.addRow(new Object[]{
-               String.valueOf(producto.getId()),
-               String.valueOf(producto.getCodigo()),
-               String.valueOf(producto.getDescripcion()),
-               String.valueOf(producto.getPrecio()),
-               String.valueOf(producto.getStock()),
-               String.valueOf(producto.getProveedor()),
-               String.valueOf(producto.getMarca())});
-                
-            }
+                table.addRow(new Object[]{
+                String.valueOf(producto.getId()),
+                String.valueOf(producto.getCodigo()),
+                String.valueOf(producto.getDescripcion()),
+                String.valueOf(producto.getPrecio()),
+                String.valueOf(producto.getStock()),
+                String.valueOf(producto.getProveedor()),
+                String.valueOf(producto.getMarca())});       
+            }   
+        }else{
+            limpiarTable(table);
         }
     }
+    
+    public static void limpiarTable(com.libreria.swing.Table table){
+        DefaultTableModel dm = (DefaultTableModel)table.getModel();
+        while(dm.getRowCount() > 0)
+        {
+            dm.removeRow(0);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,7 +145,8 @@ public class Form_Home extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.libreria.component.Card card1;
@@ -142,6 +155,6 @@ public class Form_Home extends javax.swing.JPanel {
     private javax.swing.JLayeredPane panel;
     private com.libreria.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    public com.libreria.swing.Table table;
+    public static com.libreria.swing.Table table;
     // End of variables declaration//GEN-END:variables
 }

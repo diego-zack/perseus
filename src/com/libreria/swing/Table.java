@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 public class Table extends JTable {
 
     public Table() {
+        super();
         setShowHorizontalLines(true);
         setGridColor(new Color(230, 230, 230));
         setRowHeight(40);
