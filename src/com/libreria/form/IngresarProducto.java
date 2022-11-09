@@ -23,6 +23,7 @@ public class IngresarProducto extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         PanelIngresoProducto = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(915, 600));
 
@@ -31,15 +32,23 @@ public class IngresarProducto extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ingresar Producto");
 
+        jLabel2.setText("HOOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
         javax.swing.GroupLayout PanelIngresoProductoLayout = new javax.swing.GroupLayout(PanelIngresoProducto);
         PanelIngresoProducto.setLayout(PanelIngresoProductoLayout);
         PanelIngresoProductoLayout.setHorizontalGroup(
             PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
+            .addGroup(PanelIngresoProductoLayout.createSequentialGroup()
+                .addGap(354, 354, 354)
+                .addComponent(jLabel2)
+                .addContainerGap(393, Short.MAX_VALUE))
         );
         PanelIngresoProductoLayout.setVerticalGroup(
             PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGroup(PanelIngresoProductoLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jLabel2)
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -54,7 +63,7 @@ public class IngresarProducto extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,5 +80,6 @@ public class IngresarProducto extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PanelIngresoProducto;
     public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
