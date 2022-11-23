@@ -4,14 +4,134 @@
  */
 package com.libreria.service;
 
+import com.libreria.connection.Conexion;
 import com.libreria.connection.DatabaseConnection;
 import com.libreria.model.ModelProduct;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ServiceProductos {
+    
+    PreparedStatement ps;
+    ResultSet rs;
+    ResultSet res;
+    Connection acceso; 
+    Conexion con=new Conexion();
+    ModelProduct prod = new ModelProduct();
+    ArrayList<ModelProduct> lista=new ArrayList<ModelProduct>();
+    
+    
+    public void add(ModelProduct p) {
+        try {
+            con.Conectar();
+            String query = "insert into producto( nombre, precio) "
+                    + "values ('" + p.getNombre()
+                    + "'," + p.getPrecio() + ")";
+            Statement stmt = con.getStmt();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        con.Desconectar();
+    }
+    public void update(ModelProduct producto) {
+         con.Conectar();
+        String query = "update producto " + "set nombre='"
+                + producto.getNombre() + "', precio="
+                + producto.getPrecio() +  " where id = " 
+                + producto.getId();
+        try {
+            Statement stmt = con.getStmt();  
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        con.Desconectar();
+    }
+    
+    public void remove(int id) {
+         con.Conectar();
+        String query = "delete from producto where id = " + id + " ";
+        try {Statement stmt = con.getStmt();
+        stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        con.Desconectar();
+    }
+    
+        public ModelProduct listarID(int id) throws SQLException
+    {
+        con.Conectar();
+        prod=new ModelProduct();
+        String query = "select * from producto where id="+id;
+        Statement stmt = con.getStmt();
+        ResultSet res = stmt.executeQuery(query);
+       if (res.next()) {
+            prod = new ModelProduct();
+            prod.setId(res.getInt("id"));
+            prod.setNombre(res.getString("nombre"));
+          //  prod.setPrecio(res.getInt("precio"));      
+        }
+        con.Desconectar();
+        return prod;
+    }
+    
+    
+      public ModelProduct getByName(String nombre) throws SQLException
+    {
+        con.Conectar();
+        String query = "select * from producto where nombre='"+nombre+"'";
+        Statement stmt = con.getStmt();
+        ResultSet res = stmt.executeQuery(query);
+       if (res.next()) {
+            prod = new ModelProduct();
+            prod.setId(res.getInt("id"));
+            prod.setNombre(res.getString("nombre"));
+           // prod.setPrecio(res.getInt("precio"));      
+        }
+        con.Desconectar();
+        return prod;
+    }
+      public ArrayList<ModelProduct> getAll() throws SQLException
+    {
+        con.Conectar();
+        lista=new ArrayList<ModelProduct>();
+        String query = "select * from producto";
+        Statement stmt = con.getStmt();
+        ResultSet res = stmt.executeQuery(query);
+        while (res.next()) {
+            prod = new ModelProduct();
+            prod.setId(res.getInt("id"));
+            prod.setNombre(res.getString("nombre"));
+           // prod.setPrecio(res.getInt("precio"));      
+            lista.add(prod);
+        }
+        con.Desconectar();
+        return lista;
+    }
+       public ArrayList<ModelProduct> getLikeNombre(String nombre) throws SQLException
+    {
+        con.Conectar();
+        lista=new ArrayList<ModelProduct>();
+        String query = "select * from producto where nombre like'"+nombre+"%' ";
+        Statement stmt = con.getStmt();
+        ResultSet res = stmt.executeQuery(query);
+        while (res.next()) {
+            prod = new ModelProduct();
+            prod.setId(res.getInt("id"));
+            prod.setNombre(res.getString("nombre"));
+          //  prod.setPrecio(res.getInt("precio"));      
+            lista.add(prod);
+    }
+        con.Desconectar();
+        return lista;
+    }
     
     public static ArrayList getAllProductos(){
         

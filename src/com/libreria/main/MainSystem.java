@@ -1,9 +1,10 @@
 package com.libreria.main;
 
 import com.libreria.event.EventMenuSelected;
-import com.libreria.form.IngresarProducto;
+import com.libreria.form.Form_Producto;
 import com.libreria.form.Form_3;
 import com.libreria.form.Form_Home;
+import com.libreria.form.Form_Producto;
 import com.libreria.form.Form_Proveedor;
 import com.libreria.model.ModelUser;
 import java.awt.Color;
@@ -13,7 +14,7 @@ public class MainSystem extends javax.swing.JFrame {
 
     private final ModelUser user;
     private Form_Home home;
-    private IngresarProducto form1;
+    private Form_Producto form1;
     private Form_Proveedor form2;
     private Form_3 form3;
 
@@ -22,7 +23,7 @@ public class MainSystem extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         home = new Form_Home();
-        form1 = new IngresarProducto();
+        form1 = new Form_Producto();
         form2 = new Form_Proveedor();
         form3 = new Form_3();
         menu.initMoving(MainSystem.this);
