@@ -21,7 +21,7 @@ public class Table extends JTable {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
                 TableHeader header = new TableHeader(o + "");
-                if (i1 == 7) {
+                if (i1 == 7 || i1 == 8) {
                     header.setHorizontalAlignment(JLabel.CENTER);
                 }
                 return header;
@@ -30,7 +30,7 @@ public class Table extends JTable {
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int i, int i1) {
-                if (i1 != 7) {
+                if (i1 != 7 || i1!= 8) {
                     Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, i, i1);
                     com.setBackground(Color.WHITE);
                     setBorder(noFocusBorder);

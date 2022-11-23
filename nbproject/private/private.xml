@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/GIT/libreria/src/com/libreria/main/MainSystem.java</file>
-            <file>file:/C:/GIT/libreria/src/com/libreria/form/Form_Home.java</file>
-            <file>file:/C:/GIT/libreria/src/com/libreria/swing/SearchText.java</file>
-            <file>file:/C:/GIT/libreria/src/com/libreria/form/IngresarProducto.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/form/Form_IngresarProveedor.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/model/ModelProveedor.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/component/PanelLogin.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/swing/Table.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/main/MainSystem.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/service/ServiceProveedor.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/swing/Button.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/form/Form_Proveedor.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/form/Form_Home.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/swing/TableStatus.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/form/IngresarProducto.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/connection/DatabaseConnection.java</file>
+            <file>file:/C:/Users/diego/Desktop/Perseus/perseus/src/com/libreria/component/Menu.java</file>
         </group>
     </open-files>
 </project-private>
