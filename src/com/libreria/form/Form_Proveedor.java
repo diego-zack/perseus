@@ -74,6 +74,7 @@ public class Form_Proveedor extends javax.swing.JPanel {
         panelBorder1 = new com.libreria.swing.PanelBorder();
         spTable = new javax.swing.JScrollPane();
         table = new com.libreria.swing.Table();
+        btnRefrescarTabla = new javax.swing.JButton();
         btnFormProveedor = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(242, 242, 242));
@@ -122,8 +123,16 @@ public class Form_Proveedor extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnRefrescarTabla.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnRefrescarTabla.setText("Refrescar");
+        btnRefrescarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarTablaActionPerformed(evt);
+            }
+        });
+
         btnFormProveedor.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        btnFormProveedor.setText("INGRESAR PROVEEDOR");
+        btnFormProveedor.setText("Ingresar Proveedor");
         btnFormProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFormProveedorActionPerformed(evt);
@@ -134,31 +143,38 @@ public class Form_Proveedor extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRefrescarTabla)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFormProveedor)))
                 .addContainerGap())
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnFormProveedor)
-                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                .addGap(39, 39, 39)
-                .addComponent(btnFormProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRefrescarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFormProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(135, 135, 135))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRefrescarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarTablaActionPerformed
+        ArrayList<ModelProveedor> newProveedores = ServiceProveedor.consultarProveedor();
+        rellenaTabla(newProveedores);
+    }//GEN-LAST:event_btnRefrescarTablaActionPerformed
+
     private void btnFormProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFormProveedorActionPerformed
-        // TODO add your handling code here:
         formIngresarProveedor = new Form_IngresarProveedor();
         formIngresarProveedor.setVisible(true);
     }//GEN-LAST:event_btnFormProveedorActionPerformed
@@ -166,6 +182,7 @@ public class Form_Proveedor extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFormProveedor;
+    private javax.swing.JButton btnRefrescarTabla;
     private javax.swing.JLabel jLabel1;
     private com.libreria.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;

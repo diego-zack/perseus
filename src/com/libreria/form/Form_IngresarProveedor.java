@@ -1,10 +1,12 @@
 
 package com.libreria.form;
 
+import static com.libreria.form.Form_Proveedor.rellenaTabla;
 import com.libreria.model.ModelProveedor;
 import com.libreria.service.ServiceProveedor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -216,6 +218,9 @@ public class Form_IngresarProveedor extends javax.swing.JFrame {
             txtGiro.setText("");
             txtCorreo.setText("");
             this.setVisible(false);
+            
+            ArrayList<ModelProveedor> newProveedores = ServiceProveedor.consultarProveedor();
+            rellenaTabla(newProveedores);
 
         }
         else{
