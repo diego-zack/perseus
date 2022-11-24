@@ -3,37 +3,20 @@ package com.libreria.model;
 public class ModelProduct {
     
     private int id;
-    private int codigo;
-    private int tipo_producto_id;
+    private String codigo;
+    private int tipoProducto;
     private String nombre;
     private String modelo;
     private String descripcion;
-    private String marca;
-    private String proveedor;
+    private int marca;
+    private int proveedor;
     private String unidad;
-    private int tipo_unidad_int;
+    private int tipoUnidad;
     private Double precio;
     private int stock;
-    private int foto_id;
-
-    public ModelProduct() {
-    }
-
-    public ModelProduct(int id, int codigo, int tipo_producto_id, String nombre, String modelo, String descripcion, String marca, String proveedor, String unidad, int tipo_unidad_int, Double precio, int stock, int foto_id) {
-        this.id = id;
-        this.codigo = codigo;
-        this.tipo_producto_id = tipo_producto_id;
-        this.nombre = nombre;
-        this.modelo = modelo;
-        this.descripcion = descripcion;
-        this.marca = marca;
-        this.proveedor = proveedor;
-        this.unidad = unidad;
-        this.tipo_unidad_int = tipo_unidad_int;
-        this.precio = precio;
-        this.stock = stock;
-        this.foto_id = foto_id;
-    }
+    private int foto;
+    
+    public ModelProduct(){}
 
     public int getId() {
         return id;
@@ -43,20 +26,20 @@ public class ModelProduct {
         this.id = id;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public int getTipo_producto_id() {
-        return tipo_producto_id;
+    public int getTipoProducto() {
+        return tipoProducto;
     }
 
-    public void setTipo_producto_id(int tipo_producto_id) {
-        this.tipo_producto_id = tipo_producto_id;
+    public void setTipoProducto(int tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
     public String getNombre() {
@@ -83,19 +66,19 @@ public class ModelProduct {
         this.descripcion = descripcion;
     }
 
-    public String getMarca() {
+    public int getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(int marca) {
         this.marca = marca;
     }
 
-    public String getProveedor() {
+    public int getProveedor() {
         return proveedor;
     }
 
-    public void setProveedor(String proveedor) {
+    public void setProveedor(int proveedor) {
         this.proveedor = proveedor;
     }
 
@@ -107,12 +90,12 @@ public class ModelProduct {
         this.unidad = unidad;
     }
 
-    public int getTipo_unidad_int() {
-        return tipo_unidad_int;
+    public int getTipoUnidad() {
+        return tipoUnidad;
     }
 
-    public void setTipo_unidad_int(int tipo_unidad_int) {
-        this.tipo_unidad_int = tipo_unidad_int;
+    public void setTipoUnidad(int tipoUnidad) {
+        this.tipoUnidad = tipoUnidad;
     }
 
     public Double getPrecio() {
@@ -131,20 +114,16 @@ public class ModelProduct {
         this.stock = stock;
     }
 
-    public int getFoto_id() {
-        return foto_id;
+    public int getFoto() {
+        return foto;
     }
 
-    public void setFoto_id(int foto_id) {
-        this.foto_id = foto_id;
+    public void setFoto(int foto) {
+        this.foto = foto;
     }
-
-    public ModelProduct(String nombre, Double precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-    }
-
-   
-
+    
+    
+    
+    
     
 }

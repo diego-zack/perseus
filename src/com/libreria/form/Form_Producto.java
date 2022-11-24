@@ -2,32 +2,73 @@ package com.libreria.form;
 
 import com.libreria.model.ModelProduct;
 import com.libreria.service.ServiceProductos;
+import com.libreria.swing.Table;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Form_Producto extends javax.swing.JPanel {
-
-    JLabel nombre = new JLabel();
     
-    ModelProduct prod=new ModelProduct();
-    int pos=-1;
-    boolean encontrado=false;
-    ServiceProductos productdao=new ServiceProductos();
-    DefaultTableModel tm;
-    ArrayList<ModelProduct> lista=new ArrayList<ModelProduct>();
-    int fila=0;
+    ArrayList<ModelProduct> productos,productosFiltrados;
+    String txt;
+  
     public Form_Producto() {
+        ServiceProductos sp = new ServiceProductos();
+        try {
+            productos = sp.getAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        productosFiltrados = new ArrayList();
         initComponents();
-        nombre.setText("Nombre");
-        PanelIngresoProducto.add(nombre);
-        PanelIngresoProducto.setVisible(true);
+        llenarTabla(tblDatos, productos);
+    }
+    
+    public void llenarTabla(javax.swing.JTable tabla,ArrayList<ModelProduct> productos){
+        
+        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+        limpiarTabla(tabla); 
+        
+        for(ModelProduct producto : productos){
+            dtm.addRow(new Object[]{
+                String.valueOf(producto.getCodigo()),
+                String.valueOf(producto.getNombre()),
+                String.valueOf(producto.getStock()),
+                String.valueOf(producto.getPrecio())
+            } );
+        }
+        tabla.setModel(dtm);
     }
 
+    public void LimpiarFormulario()
+    {
+        etCodigo.setText("");
+        etNombre.setText("");
+        etPrecio.setText("");
+    }
+   
+    
+    public static boolean esNumero(String s){
+        try {
+            Double d = Double.parseDouble(s);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
+    }
+    
+    public void limpiarTabla(javax.swing.JTable tabla){
+        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+        for(int i=0;i < dtm.getRowCount();i++){
+            dtm.removeRow(i);
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,17 +81,17 @@ public class Form_Producto extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        etBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        btnNuevo = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         PanelIngresoProducto = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
+        etCodigo = new javax.swing.JTextField();
+        etNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
+        etPrecio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -64,8 +105,6 @@ public class Form_Producto extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JButton();
         btnIngresar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(242, 242, 242));
-
         tblDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tblDatos.setForeground(new java.awt.Color(255, 153, 0));
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
@@ -73,11 +112,11 @@ public class Form_Producto extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Nombre", "Precio"
+                "Codigo", "Nombre", "Precio", "Stock"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -90,11 +129,11 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("Buscar:");
 
-        jTextField7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jTextField7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+        etBuscar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        etBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        etBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                etBuscarKeyReleased(evt);
             }
         });
 
@@ -103,13 +142,13 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Productos");
 
-        btnNuevo.setBackground(new java.awt.Color(102, 102, 255));
-        btnNuevo.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        btnNuevo.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpiar.setBackground(new java.awt.Color(102, 102, 255));
+        btnLimpiar.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
+                btnLimpiarActionPerformed(evt);
             }
         });
 
@@ -120,21 +159,11 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Código:");
 
-        txtCodigo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
+        etCodigo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        etCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        txtNombre.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
+        etNombre.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        etNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
@@ -144,13 +173,8 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Precio:");
 
-        txtPrecio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioActionPerformed(evt);
-            }
-        });
+        etPrecio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        etPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -161,25 +185,10 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel8.setText("Marca:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
@@ -221,14 +230,14 @@ public class Form_Producto extends javax.swing.JPanel {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPrecio)
+                    .addComponent(etNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(etPrecio)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelIngresoProductoLayout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(etCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(189, 189, 189))
@@ -239,17 +248,17 @@ public class Form_Producto extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre))
+                    .addComponent(etNombre))
                 .addGap(18, 18, 18)
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(16, 16, 16)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -314,7 +323,7 @@ public class Form_Producto extends javax.swing.JPanel {
                         .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
@@ -326,7 +335,7 @@ public class Form_Producto extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(357, 357, 357))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -341,7 +350,7 @@ public class Form_Producto extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7))
+                            .addComponent(etBuscar))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
@@ -351,7 +360,7 @@ public class Form_Producto extends javax.swing.JPanel {
                         .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNuevo)
+                            .addComponent(btnLimpiar)
                             .addComponent(btnModificar)
                             .addComponent(btnEliminar)
                             .addComponent(btnIngresar))
@@ -359,79 +368,18 @@ public class Form_Producto extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         LimpiarFormulario();
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        productdao=new ServiceProductos();
-        prod=new ModelProduct();
-        int id=Integer.parseInt(txtCodigo.getText());
-        if(id!=0)
-        {
-            try {
-                prod=productdao.listarID(id);
-                if((prod.getNombre() != null) && (prod.getPrecio()!=0)) {
-                    txtNombre.setText(prod.getNombre());
-                    txtPrecio.setText(String.valueOf(prod.getPrecio()));
-                    encontrado=true;
-                } else {
-                    encontrado=false;
-                    JOptionPane.showMessageDialog(null, "Registro No Encontrado");
-                    txtCodigo.requestFocus();
-                    LimpiarFormulario();
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Form_Producto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+        if(!etCodigo.getText().equals("")){
+            System.out.println(etNombre.getText());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        productdao=new ServiceProductos();
-        prod=new ModelProduct();
-        if (encontrado==true)
-        {
-            prod.setId(Integer.parseInt(txtCodigo.getText()));
-            prod.setNombre(txtNombre.getText());
-            prod.setPrecio(Integer.parseInt(txtPrecio.getText()));
-            productdao.update(prod);
-            JOptionPane.showMessageDialog(null, "Registro Actualizado Correctamente");
-            CargarDatos();
-        }else
-        {
-            JOptionPane.showMessageDialog(null, "Primero Busque Registro a Actualizar..");
-        }
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -439,66 +387,46 @@ public class Form_Producto extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        prod=new ModelProduct(txtNombre.getText(),Integer.parseInt(txtPrecio.getText()));
-        prod.setId(Integer.parseInt(txtCodigo.getText()));
-        prod.setNombre(txtNombre.getText());
-        prod.setPrecio(Integer.parseInt(txtPrecio.getText()));
-        productdao.add(prod);
-
-        JOptionPane.showMessageDialog(null, "Registro Insertado Correctamente");
         LimpiarFormulario();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-
-    public void LimpiarFormulario()
-{
-        txtCodigo.setText("");
-        txtNombre.setText("");
-        txtPrecio.setText("");
-        txtCodigo.requestFocus();
-        encontrado=false;
-        pos=-1;
-        CargarDatos();
-}
-    public void CargarDatos()
-{
-       tm=null;
-       lista=null;
-       tm= (DefaultTableModel)tblDatos.getModel();
-       tm.setRowCount(0);
-       try {
-            lista = productdao.getAll();
-            
-            for(int i=0;i<lista.size();i++)
-                
-            {   prod=new ModelProduct();
-                prod=lista.get(i);
-               
-                tm.addRow(new Object[]{prod.getId(),prod.getNombre(), prod.getPrecio()} );
+    private void etBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_etBuscarKeyReleased
+        // TODO add your handling code here:
+        try 
+        {   
+            productosFiltrados.clear();
+            txt = etBuscar.getText().toUpperCase();
+            if(!productos.equals(null)){
+                for(ModelProduct producto : productos){
+                    if((producto.getNombre()).toUpperCase().contains(txt)
+                            || producto.getCodigo().toUpperCase().contains(txt))
+                    {
+                       productosFiltrados.add(producto);
+                    }                  
+                    
+                }
             }
-             tblDatos.setModel(tm);
-        } catch (Exception ex) {
-            Logger.getLogger(Form_Producto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-}
-    
-    public static boolean esnumero(String s){
-        try {
-            Double d = Double.parseDouble(s);
-            return true;
+            if(!productosFiltrados.isEmpty()){
+                limpiarTabla(tblDatos); 
+                llenarTabla(tblDatos, productosFiltrados);
+            }
         } catch (Exception e) {
-            return false;
-        }
-        
-    }
+            System.err.println("Error\n---> "+e);
+        }   
+    }//GEN-LAST:event_etBuscarKeyReleased
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelIngresoProducto;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
+    private javax.swing.JTextField etBuscar;
+    private javax.swing.JTextField etCodigo;
+    private javax.swing.JTextField etNombre;
+    private javax.swing.JTextField etPrecio;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -514,10 +442,7 @@ public class Form_Producto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTable tblDatos;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecio;
+    public static javax.swing.JTable tblDatos;
     // End of variables declaration//GEN-END:variables
 }
+

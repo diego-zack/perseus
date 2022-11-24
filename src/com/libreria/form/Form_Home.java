@@ -1,20 +1,15 @@
 package com.libreria.form;
 
 import com.libreria.model.ModelCard;
-import com.libreria.model.ModelProduct;
-import com.libreria.service.ServiceProductos;
 import com.libreria.swing.ScrollBar;
 import java.awt.Color;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class Form_Home extends javax.swing.JPanel {
-    
-    public ArrayList<ModelProduct> productos = ServiceProductos.getAllProductos();
+   
 
     public Form_Home() {
         initComponents();
@@ -28,30 +23,7 @@ public class Form_Home extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        
-        pintarTabla(this.productos);
     }   
-    
-    public static void pintarTabla(ArrayList<ModelProduct> productos){
-        
-        limpiarTable(table);
-        
-        if(!productos.isEmpty()){
-            for(ModelProduct producto : productos){         
-               
-                table.addRow(new Object[]{
-                String.valueOf(producto.getId()),
-                String.valueOf(producto.getCodigo()),
-                String.valueOf(producto.getDescripcion()),
-                String.valueOf(producto.getPrecio()),
-                String.valueOf(producto.getStock()),
-                String.valueOf(producto.getProveedor()),
-                String.valueOf(producto.getMarca())});       
-            }   
-        }else{
-            limpiarTable(table);
-        }
-    }
     
     public static void limpiarTable(com.libreria.swing.Table table){
         DefaultTableModel dm = (DefaultTableModel)table.getModel();

@@ -10,17 +10,8 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 public class Header extends javax.swing.JPanel {
-    
-    ArrayList<ModelProduct> productos,productosFiltrados;
-    public com.libreria.swing.Table table = new Table();
-    String txt;
-    
 
     public Header() {
-        productos = ServiceProductos.getAllProductos();
-        productosFiltrados = new ArrayList();
-        initComponents();
-        setOpaque(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -140,25 +131,7 @@ public class Header extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void keyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyReleased
-        try 
-        {   
-            productosFiltrados.clear();
-            txt = searchText1.getText().toUpperCase();
-            for(ModelProduct producto : productos){
-                if(String.valueOf(producto.getCodigo()).contains(txt)
-                   || producto.getDescripcion().contains(txt)
-                   || producto.getProveedor().contains(txt)
-                   || producto.getMarca().contains(txt))
-                {
-                    if(!productosFiltrados.contains(producto)){
-                        productosFiltrados.add(producto);
-                    }
-                }
-            }
-            if(!productosFiltrados.isEmpty()){Form_Home.pintarTabla(productosFiltrados);}
-        } catch (Exception e) {
-            System.err.println("Error\n---> "+e);
-        }   
+
     }//GEN-LAST:event_keyReleased
 
     @Override

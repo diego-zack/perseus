@@ -13,14 +13,14 @@ import java.sql.Statement;
 public class Conexion {
     
     protected Connection con;
-         protected Statement stmt;
-         private String serverName= "localhost";
-         private String portNumber = "3306";
-         private String databaseName= "libreria";
-         private String url = "jdbc:mysql://localhost:3306/" + databaseName;
-         private String userName = "root";
-         private String password = ""; 
-         private String errString;
+    protected Statement stmt;
+    private String serverName= "localhost";
+    private String portNumber = "3306";
+    private String databaseName= "perseusdb";
+    private String url = "jdbc:mysql://localhost:3306/" + databaseName;
+    private String userName = "root";
+    private String password = ""; 
+    private String errString;
 
       public Conexion()
       {
@@ -35,13 +35,12 @@ public class Conexion {
      public Connection Conectar() {
         con=null;
          try{
-              Class.forName("org.gjt.mm.mysql.Driver");
               con = DriverManager.getConnection(getConnectionUrl(),userName,password);
               stmt=con.createStatement();
               System.out.println("Conectado");
          }catch(Exception e){
              errString= "Error Mientras se conectaba a la Base de Datos";
-             System.out.println(errString);
+             System.out.println(errString+" ==> "+e);
              return null;
          }
           return con;
