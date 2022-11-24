@@ -1,11 +1,10 @@
 
 package com.libreria.model;
 
-import com.libreria.connection.DatabaseConnection;
-
 public class ModelProveedor {
     private int id;
     private String rut;
+    private String nombre;
     private String razon_social;
     private String ciudad;
     private String comuna;
@@ -28,6 +27,13 @@ public class ModelProveedor {
     }
     public void setRut(String rut){
         this.rut = rut;
+    }    
+    
+    public String getNombre(){
+        return nombre;
+    }
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
     
     public String getRazonSocial(){
@@ -79,8 +85,22 @@ public class ModelProveedor {
         this.correo = correo;
     }
 
-    public ModelProveedor(String rut, String razon_social, String ciudad, String comuna, String direccion, String telefono, String giro, String correo) {
+    public ModelProveedor(String rut, String nombre,String razon_social, String ciudad, String comuna, String direccion, String telefono, String giro, String correo) {
         this.rut = rut;
+        this.nombre = nombre;
+        this.razon_social = razon_social;
+        this.ciudad = ciudad;
+        this.comuna = comuna;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.giro = giro;
+        this.correo = correo;
+    }
+    
+        public ModelProveedor(int id, String rut, String nombre, String razon_social, String ciudad, String comuna, String direccion, String telefono, String giro, String correo) {
+        this.id = id;
+        this.rut = rut;
+        this.nombre = nombre;
         this.razon_social = razon_social;
         this.ciudad = ciudad;
         this.comuna = comuna;
