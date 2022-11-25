@@ -48,7 +48,7 @@ public class ServiceProductos {
             producto.setTipoUnidad(res.getInt("tipo_unidad_id"));
             producto.setPrecio(res.getDouble("precio"));
             producto.setStock(res.getInt("stock"));
-            producto.setFoto(res.getInt("foto_id"));
+            producto.setImagen(res.getBytes("imagen"));
               
             lista.add(producto);
         }
@@ -61,7 +61,7 @@ public class ServiceProductos {
     public Boolean insertProducto(ModelProduct p){
         Connection con = DatabaseConnection.getInstance().getConnection();
         String query = "insert into "
-                + "producto(nombre,codigo,modelo,descripcion,marca_id,proveedor_id,tipo_producto_id,tipo_unidad_id,stock,foto_id,unidad,precio)"
+                + "producto(nombre,codigo,modelo,descripcion,marca_id,proveedor_id,tipo_producto_id,tipo_unidad_id,stock,unidad,precio,imagen)"
                 + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         
         try{
@@ -70,14 +70,14 @@ public class ServiceProductos {
             ps.setString(2,p.getCodigo());
             ps.setString(3,p.getModelo());
             ps.setString(4,p.getDescripcion());
-            ps.setString(11,String.valueOf(p.getUnidad()));
+            ps.setString(10,String.valueOf(p.getUnidad()));
             ps.setInt(5,p.getMarca());
             ps.setInt(6,p.getProveedor());
             ps.setInt(7, p.getTipoProducto());
             ps.setInt(8,p.getTipoUnidad());
             ps.setInt(9, p.getStock());
-            ps.setInt(10,p.getFoto());
-            ps.setDouble(12,p.getPrecio());
+            ps.setDouble(11,p.getPrecio());
+            ps.setBytes(12,p.getImagen());
             
             ps.executeUpdate();
             return true;
@@ -91,7 +91,7 @@ public class ServiceProductos {
         Connection con = DatabaseConnection.getInstance().getConnection();
         String query = "update producto set "
                 + "nombre = ? , codigo = ? , modelo = ? , descripcion = ? , marca_id = ? , proveedor_id = ? , "
-                + "tipo_producto_id = ? , tipo_unidad_id = ? , stock = ? , foto_id = ? , unidad = ? , precio = ?  "
+                + "tipo_producto_id = ? , tipo_unidad_id = ? , stock = ? , imagen = ? , unidad = ? , precio = ?  "
                 + "where id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -105,7 +105,7 @@ public class ServiceProductos {
             ps.setInt(7, p.getTipoProducto());
             ps.setInt(8,p.getTipoUnidad());
             ps.setInt(9, p.getStock());
-            ps.setInt(10,p.getFoto());
+            ps.setBytes(10,p.getImagen());
             ps.setDouble(12,p.getPrecio());
             ps.setInt(13, p.getId());
             

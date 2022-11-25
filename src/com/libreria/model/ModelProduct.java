@@ -15,6 +15,7 @@ public class ModelProduct {
     private int foto;
     private Double unidad;
     private Double precio;
+    private byte [] imagen; 
     
     public ModelProduct(){}
 
@@ -120,6 +121,14 @@ public class ModelProduct {
 
     public void setFoto(int foto) {
         this.foto = foto;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
     
     

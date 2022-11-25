@@ -1,4 +1,3 @@
-
 package com.libreria.connection;
 
 import java.sql.Connection;
