@@ -37,7 +37,6 @@ public class Conexion {
          try{
               con = DriverManager.getConnection(getConnectionUrl(),userName,password);
               stmt=con.createStatement();
-              System.out.println("Conectado");
          }catch(Exception e){
              errString= "Error Mientras se conectaba a la Base de Datos";
              System.out.println(errString+" ==> "+e);

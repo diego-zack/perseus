@@ -3,18 +3,18 @@ package com.libreria.model;
 public class ModelProduct {
     
     private int id;
-    private String codigo;
-    private int tipoProducto;
     private String nombre;
+    private String codigo;
     private String modelo;
     private String descripcion;
     private int marca;
     private int proveedor;
-    private String unidad;
+    private int tipoProducto;
     private int tipoUnidad;
-    private Double precio;
     private int stock;
     private int foto;
+    private Double unidad;
+    private Double precio;
     
     public ModelProduct(){}
 
@@ -82,11 +82,11 @@ public class ModelProduct {
         this.proveedor = proveedor;
     }
 
-    public String getUnidad() {
+    public Double getUnidad() {
         return unidad;
     }
 
-    public void setUnidad(String unidad) {
+    public void setUnidad(Double unidad) {
         this.unidad = unidad;
     }
 
