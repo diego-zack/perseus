@@ -1,12 +1,90 @@
 package com.libreria.form;
 
+import com.libreria.connection.Conexion;
+import com.libreria.connection.DatabaseConnection;
+import com.libreria.main.RenderImagen;
+import com.libreria.model.ModelProduct;
+import com.libreria.service.ServiceProductos;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+
 public class Form_3 extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_1
-     */
+    Conexion con = new Conexion();
+    DatabaseConnection can;
+    private ServiceProductos sp;
+    DefaultTableModel mModeloTabla = new DefaultTableModel();
+    
+    
     public Form_3() {
         initComponents();
+        mModeloTabla.addColumn("ID");
+        mModeloTabla.addColumn("Nombre");
+        mModeloTabla.addColumn("Codigo");
+        mModeloTabla.addColumn("Stock");
+        mModeloTabla.addColumn("Precio");
+        mModeloTabla.addColumn("Imagen");
+        
+        CargarImagenes();
+    }
+    
+    private void CargarImagenes() {
+        tblImagenes.setDefaultRenderer(Object.class, new RenderImagen());
+
+        ArrayList productos;
+        ModelProduct producto;
+        sp = new ServiceProductos();
+        
+            Object Datos[] = new Object[6];
+            productos = sp.getAll();
+            
+            if (productos != null) {
+                for (int i = 0; i < productos.size(); i++) {
+                    producto = (ModelProduct) productos.get(i);
+                    Datos[0] = String.valueOf(producto.getId());
+                    Datos[1] = producto.getNombre();
+                    Datos[2] = producto.getCodigo();
+                    Datos[3] = String.valueOf(producto.getStock());
+                    Datos[4] = String.valueOf(producto.getPrecio());
+                    
+                    try {
+                        byte[] imagen = producto.getImagen();
+                        BufferedImage bufferedImage = null;
+                        InputStream inputStream = new ByteArrayInputStream(imagen);
+                        bufferedImage = ImageIO.read(inputStream);
+                        ImageIcon mIcono = new ImageIcon(bufferedImage.getScaledInstance(60, 60, 0));
+                        Datos[5] = new JLabel(mIcono);
+                    } catch (Exception e) {
+                        Datos[5] = new JLabel("No imagen");
+                    }
+                    
+
+                    mModeloTabla.addRow(Datos);
+                }
+
+                tblImagenes.setModel(mModeloTabla);
+                tblImagenes.setRowHeight(120);
+                tblImagenes.getColumnModel().getColumn(0).setPreferredWidth(10);
+                tblImagenes.getColumnModel().getColumn(1).setPreferredWidth(40);
+                tblImagenes.getColumnModel().getColumn(2).setPreferredWidth(10);
+                tblImagenes.getColumnModel().getColumn(3).setPreferredWidth(10);
+                tblImagenes.getColumnModel().getColumn(4).setPreferredWidth(10);
+                tblImagenes.getColumnModel().getColumn(5).setPreferredWidth(60);
+            }
+        
+
+    }
+    private void Limpiar() {
+        for (int i = 0; i < tblImagenes.getRowCount(); i++) {
+            mModeloTabla.removeRow(i);
+            i -= 1;
+        }
     }
 
     /**
@@ -18,35 +96,42 @@ public class Form_3 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblImagenes = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(242, 242, 242));
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(106, 106, 106));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Form 3");
+        tblImagenes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblImagenes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(125, 125, 125))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblImagenes;
     // End of variables declaration//GEN-END:variables
 }

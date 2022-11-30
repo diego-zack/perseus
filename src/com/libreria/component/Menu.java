@@ -32,8 +32,10 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new ModelMenu("1", "Inicio", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("2", "Productos", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("3", "Proveedores", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("4", "Egresos", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("4", "Stock", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("5", "Egresos", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("5", "Facturas", ModelMenu.MenuType.MENU));
+
         listMenu1.addItem(new ModelMenu("", " ", ModelMenu.MenuType.EMPTY));
 
         listMenu1.addItem(new ModelMenu("", "Estadisticas", ModelMenu.MenuType.TITLE));

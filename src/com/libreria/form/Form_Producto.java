@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -288,7 +289,7 @@ public class Form_Producto extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         tblDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblDatos.setForeground(new java.awt.Color(255, 153, 0));
+        tblDatos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
