@@ -635,9 +635,11 @@ public class Form_Producto extends javax.swing.JPanel {
                    id = mp.getId();
                }
            }
+            btnIngresar.setVisible(false);
+            btnGuardarCambios.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Antes de editar debes seleccionar un producto");
         }
-        btnIngresar.setVisible(false);
-        btnGuardarCambios.setVisible(true);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -669,12 +671,15 @@ public class Form_Producto extends javax.swing.JPanel {
                 listo = sp.insertProducto(p);
                 if(listo){
                     JOptionPane.showMessageDialog(this, "producto se registro exitosamente");
+                    recargar();
                     limpiarFormulario();
                 }else{
                     JOptionPane.showMessageDialog(this, "Error al ingresar el producto, llame a soporte");
                 }
+            }else{
+                JOptionPane.showMessageDialog(this,"El producto ya esta registrado\nSi desea actualizar puede buscar con el codigo\n"+p.getCodigo());
+    
             }
-            JOptionPane.showMessageDialog(this,"El producto ya esta registrado\nSi desea actualizar puede buscar con el codigo\n"+p.getCodigo());
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -750,7 +755,7 @@ public class Form_Producto extends javax.swing.JPanel {
                 recargar();
                 btnGuardarCambios.setVisible(false);
                 btnIngresar.setVisible(true);
-                llenarFormulario(p);
+                limpiarFormulario();
             }else{
                 JOptionPane.showMessageDialog(this, "Error al actualizar, contancte a su proveedor");
             }
