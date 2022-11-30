@@ -150,6 +150,7 @@ public class Form_Producto extends javax.swing.JPanel {
         cbTipoUnidad.setSelectedIndex(0);
         btnIngresar.setVisible(true);
         btnGuardarCambios.setVisible(false);
+        
     }
     public void llenarFormulario(ModelProduct p){
         etNombre.setText(p.getNombre());
@@ -673,9 +674,9 @@ public class Form_Producto extends javax.swing.JPanel {
                    id = mp.getId();
                }
            }
-        }
         btnIngresar.setVisible(false);
         btnGuardarCambios.setVisible(true);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
