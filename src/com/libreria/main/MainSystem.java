@@ -38,7 +38,7 @@ public class MainSystem extends javax.swing.JFrame {
                     setForm(form2);
                 } else if (index == 3) {
                     setForm(form3);
-                }else if(index == 12){
+                }else if(index == 13){
                     System.exit(0);
                 }
             }
