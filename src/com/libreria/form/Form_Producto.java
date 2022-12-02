@@ -5,8 +5,12 @@ import com.libreria.connection.DatabaseConnection;
 import com.libreria.main.RenderImagen;
 import com.libreria.model.ModelProduct;
 import com.libreria.service.ServiceProductos;
+
+
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -86,7 +90,6 @@ public class Form_Producto extends javax.swing.JPanel {
                 tblImagenes.getColumnModel().getColumn(5).setPreferredWidth(100);
             }
         
-
     }
     /*private void Limpiar() {
         for (int i = 0; i < tblImagenes.getRowCount(); i++) {

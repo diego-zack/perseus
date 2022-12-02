@@ -13,16 +13,12 @@ import com.libreria.service.ServiceTipoUnidad;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -93,9 +89,8 @@ public class asfddfadfs extends javax.swing.JPanel {
         
         
         for(ModelProduct mp : productos){
-            Object Datos[] = new Object[];
             try {
-                        byte[] imagen = mp.getImagen();
+                        byte[] imagen = producto.getImagen();
                         BufferedImage bufferedImage = null;
                         InputStream inputStream = new ByteArrayInputStream(imagen);
                         bufferedImage = ImageIO.read(inputStream);
@@ -110,8 +105,6 @@ public class asfddfadfs extends javax.swing.JPanel {
                 String.valueOf(mp.getNombre()),
                 String.valueOf(mp.getStock()),
                 String.valueOf(mp.getPrecio()),
-                Datos[5]
-                
                 
             } );
         }
