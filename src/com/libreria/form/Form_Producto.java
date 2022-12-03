@@ -2,8 +2,10 @@ package com.libreria.form;
 
 import com.libreria.connection.Conexion;
 import com.libreria.connection.DatabaseConnection;
+import static com.libreria.form.Form_IngresarProducto.tblDatos;
 import com.libreria.main.RenderImagen;
 import com.libreria.model.ModelProduct;
+import com.libreria.model.ModelTipoProducto;
 import com.libreria.service.ServiceProductos;
 
 
@@ -43,54 +45,93 @@ public class Form_Producto extends javax.swing.JPanel {
     public void recargar(){
         sp = new ServiceProductos();
         productos = sp.getAll();
-        CargarImagenes(productos);
+        limpiarTabla(tblDatos);
+        llenarTabla(tblDatos, productos);
     }
-    
-    
-    private void CargarImagenes(ArrayList<ModelProduct> productos) {
-        tblImagenes.setDefaultRenderer(Object.class, new RenderImagen());
-        //limpiarTabla(tabla);
-        ModelProduct producto;
-        sp = new ServiceProductos();
+    public void llenarTabla(javax.swing.JTable tabla,ArrayList<ModelProduct> productos){ 
+        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+        tblDatos.setDefaultRenderer(Object.class, new RenderImagen());
+        limpiarTabla(tabla); 
+        Object Datos[] = new Object[5];
         
-            Object Datos[] = new Object[6];
-            
-            
-            if (productos != null) {
-                for (int i = 0; i < productos.size(); i++) {
-                    producto = (ModelProduct) productos.get(i);
-                    Datos[0] = String.valueOf(producto.getId());
-                    Datos[1] = producto.getNombre();
-                    Datos[2] = producto.getCodigo();
-                    Datos[3] = String.valueOf(producto.getStock());
-                    Datos[4] = String.valueOf(producto.getPrecio());
-                    
-                    try {
-                        byte[] imagen = producto.getImagen();
+        for(ModelProduct mp : productos){
+            Datos[0] = mp.getCodigo();
+            Datos[1] = mp.getNombre();
+            Datos[2] = String.valueOf(mp.getStock());
+            Datos[3] = String.valueOf(mp.getPrecio());
+            try {
+                        byte[] imagen = mp.getImagen();
                         BufferedImage bufferedImage = null;
                         InputStream inputStream = new ByteArrayInputStream(imagen);
                         bufferedImage = ImageIO.read(inputStream);
                         ImageIcon mIcono = new ImageIcon(bufferedImage.getScaledInstance(150, 150, 0));
-                        Datos[5] = new JLabel(mIcono);
+                        Datos[4] = new JLabel(mIcono);
                     } catch (Exception e) {
-                        Datos[5] = new JLabel("No imagen");
+                        Datos[4] = new JLabel("No imagen");
                     }
-                    
-                    
-                    mModeloTabla.addRow(Datos);
-                }
-
-                tblImagenes.setModel(mModeloTabla);
-                tblImagenes.setRowHeight(120);
-                tblImagenes.getColumnModel().getColumn(0).setPreferredWidth(10);
-                tblImagenes.getColumnModel().getColumn(1).setPreferredWidth(40);
-                tblImagenes.getColumnModel().getColumn(2).setPreferredWidth(10);
-                tblImagenes.getColumnModel().getColumn(3).setPreferredWidth(10);
-                tblImagenes.getColumnModel().getColumn(4).setPreferredWidth(10);
-                tblImagenes.getColumnModel().getColumn(5).setPreferredWidth(100);
-            }
-        
+            
+            dtm.addRow(Datos);
+        }
+        tabla.setModel(dtm);
+        tblDatos.setRowHeight(120);
+        tblDatos.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblDatos.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tblDatos.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tblDatos.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tblDatos.getColumnModel().getColumn(4).setPreferredWidth(10);
     }
+    public void limpiarTabla(javax.swing.JTable tabla){
+        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+        for(int i=0;i < dtm.getRowCount();i++){
+            dtm.removeRow(i);
+        }
+    }
+    
+    
+//    private void CargarImagenes(ArrayList<ModelProduct> productos) {
+//        tblImagenes.setDefaultRenderer(Object.class, new RenderImagen());
+//        //limpiarTabla(tabla);
+//        ModelProduct producto;
+//        sp = new ServiceProductos();
+//        
+//            Object Datos[] = new Object[6];
+//            
+//            
+//            if (productos != null) {
+//                for (int i = 0; i < productos.size(); i++) {
+//                    producto = (ModelProduct) productos.get(i);
+//                    Datos[0] = String.valueOf(producto.getId());
+//                    Datos[1] = producto.getNombre();
+//                    Datos[2] = producto.getCodigo();
+//                    Datos[3] = String.valueOf(producto.getStock());
+//                    Datos[4] = String.valueOf(producto.getPrecio());
+//                    
+//                    try {
+//                        byte[] imagen = producto.getImagen();
+//                        BufferedImage bufferedImage = null;
+//                        InputStream inputStream = new ByteArrayInputStream(imagen);
+//                        bufferedImage = ImageIO.read(inputStream);
+//                        ImageIcon mIcono = new ImageIcon(bufferedImage.getScaledInstance(150, 150, 0));
+//                        Datos[5] = new JLabel(mIcono);
+//                    } catch (Exception e) {
+//                        Datos[5] = new JLabel("No imagen");
+//                    }
+//                    
+//                    
+//                    mModeloTabla.addRow(Datos);
+//                }
+//
+//                tblImagenes.setModel(mModeloTabla);
+//                tblImagenes.setRowHeight(120);
+//                tblImagenes.getColumnModel().getColumn(0).setPreferredWidth(10);
+//                tblImagenes.getColumnModel().getColumn(1).setPreferredWidth(40);
+//                tblImagenes.getColumnModel().getColumn(2).setPreferredWidth(10);
+//                tblImagenes.getColumnModel().getColumn(3).setPreferredWidth(10);
+//                tblImagenes.getColumnModel().getColumn(4).setPreferredWidth(10);
+//                tblImagenes.getColumnModel().getColumn(5).setPreferredWidth(100);
+//            }
+//        
+//    }
     /*private void Limpiar() {
         for (int i = 0; i < tblImagenes.getRowCount(); i++) {
             mModeloTabla.removeRow(i);
@@ -107,26 +148,15 @@ public class Form_Producto extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblImagenes = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         etBuscar = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDatos = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-
-        tblImagenes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tblImagenes.setShowVerticalLines(false);
-        jScrollPane1.setViewportView(tblImagenes);
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
@@ -170,32 +200,57 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Productos");
 
+        tblDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblDatos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre", "Stock", "Precio", "Imagen"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDatosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblDatos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 323, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel9)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(274, 274, 274)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(335, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
                 .addGap(308, 308, 308)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74)
                 .addComponent(btnModificar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,13 +261,16 @@ public class Form_Producto extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(etBuscar))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 407, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresar)
                     .addComponent(btnModificar))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(131, 131, 131)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(88, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -236,9 +294,8 @@ public class Form_Producto extends javax.swing.JPanel {
                 }
             }
             if(!productosFiltrados.isEmpty()){
-                CargarImagenes(productosFiltrados);
-//                limpiarTabla(tblImagenes);
-                //CargarImagenes(tblImagenes, productosFiltrados);
+                limpiarTabla(tblDatos);
+                llenarTabla(tblDatos, productosFiltrados);
             }
         } catch (Exception e) {
             System.err.println("Error\n---> "+e);
@@ -254,6 +311,10 @@ public class Form_Producto extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDatosMouseClicked
 
 //    public void llenarTabla(javax.swing.JTable tabla,ArrayList<ModelProduct> productos){ 
 //        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
@@ -285,6 +346,6 @@ public class Form_Producto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblImagenes;
+    public static javax.swing.JTable tblDatos;
     // End of variables declaration//GEN-END:variables
 }
