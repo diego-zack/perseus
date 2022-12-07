@@ -7,6 +7,7 @@ import com.libreria.form.Form_Home;
 import com.libreria.form.Form_Producto;
 import com.libreria.form.Form_Proveedor;
 import com.libreria.model.ModelUser;
+import com.libreria.form.Form_Egreso;
 import java.awt.Color;
 import javax.swing.JComponent;
 
@@ -17,15 +18,19 @@ public class MainSystem extends javax.swing.JFrame {
     private Form_Producto form1;
     private Form_Proveedor form2;
     private Form_3 form3;
+    private Form_Egreso formEgreso;
 
     public MainSystem(ModelUser user) {
         this.user = user;
         initComponents();
+        
         setBackground(new Color(0, 0, 0, 0));
         home = new Form_Home();
         form1 = new Form_Producto();
         form2 = new Form_Proveedor();
         form3 = new Form_3();
+        formEgreso = new Form_Egreso();
+        
         menu.initMoving(MainSystem.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -38,6 +43,8 @@ public class MainSystem extends javax.swing.JFrame {
                     setForm(form2);
                 } else if (index == 3) {
                     setForm(form3);
+                }else if (index == 4){
+                        setForm(formEgreso);
                 }else if(index == 13){
                     System.exit(0);
                 }

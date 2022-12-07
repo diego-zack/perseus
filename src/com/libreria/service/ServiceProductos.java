@@ -6,7 +6,6 @@ package com.libreria.service;
 
 import com.libreria.connection.Conexion;
 import com.libreria.connection.DatabaseConnection;
-import com.libreria.form.Form_Producto;
 import com.libreria.model.ModelProduct;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,13 +25,15 @@ public class ServiceProductos {
     ArrayList<ModelProduct> lista;
    
     
-      public ArrayList<ModelProduct> getAll(){        
+      public ArrayList<ModelProduct> getAll(){
+          
         con.Conectar();
-        lista =new ArrayList<ModelProduct>();
+        lista = new ArrayList<>();
         String query = "select * from producto";
         Statement stmt = con.getStmt();
+        
         try{
-            ResultSet res = stmt.executeQuery(query);
+            res = stmt.executeQuery(query);
         
         while (res.next()) {
             producto = new ModelProduct();
@@ -48,12 +49,12 @@ public class ServiceProductos {
             producto.setTipoUnidad(res.getInt("tipo_unidad_id"));
             producto.setPrecio(res.getDouble("precio"));
             producto.setStock(res.getInt("stock"));
-            producto.setImagen(res.getBytes("imagen"));
+            //producto.setImagen(res.getBytes("imagen"));
               
             lista.add(producto);
         }
         }catch(SQLException e){
-            System.out.println("Error => "+e);
+            System.out.println("Error GETALL() => "+e);
         }
         con.Desconectar();
         return lista;
