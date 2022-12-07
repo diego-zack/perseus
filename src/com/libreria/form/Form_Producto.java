@@ -149,12 +149,14 @@ public class Form_Producto extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel9 = new javax.swing.JLabel();
-        etBuscar = new javax.swing.JTextField();
+        etBuscarCategoria = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        etBuscar = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -162,16 +164,16 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("Buscar:");
 
-        etBuscar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        etBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        etBuscar.addActionListener(new java.awt.event.ActionListener() {
+        etBuscarCategoria.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        etBuscarCategoria.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        etBuscarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                etBuscarActionPerformed(evt);
+                etBuscarCategoriaActionPerformed(evt);
             }
         });
-        etBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+        etBuscarCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                etBuscarKeyReleased(evt);
+                etBuscarCategoriaKeyReleased(evt);
             }
         });
 
@@ -201,7 +203,7 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel1.setText("Productos");
 
         tblDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tblDatos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        tblDatos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -225,6 +227,23 @@ public class Form_Producto extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblDatos);
 
+        jLabel10.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Categoria");
+
+        etBuscar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        etBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        etBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                etBuscarActionPerformed(evt);
+            }
+        });
+        etBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                etBuscarKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,9 +261,13 @@ public class Form_Producto extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(323, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(etBuscarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(322, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -259,6 +282,8 @@ public class Form_Producto extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etBuscarCategoria)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(etBuscar))
                 .addGap(462, 462, 462)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -273,16 +298,16 @@ public class Form_Producto extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void etBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etBuscarActionPerformed
+    private void etBuscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etBuscarCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_etBuscarActionPerformed
+    }//GEN-LAST:event_etBuscarCategoriaActionPerformed
 
-    private void etBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_etBuscarKeyReleased
+    private void etBuscarCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_etBuscarCategoriaKeyReleased
         // TODO add your handling code here:
         try
         {
             productosFiltrados.clear();
-            txt = etBuscar.getText().toUpperCase();
+            txt = etBuscarCategoria.getText().toUpperCase();
             if(!productos.equals(null)){
                 for(ModelProduct p : productos){
                     if((p.getNombre()).toUpperCase().contains(txt)
@@ -299,7 +324,7 @@ public class Form_Producto extends javax.swing.JPanel {
         } catch (Exception e) {
             System.err.println("Error\n---> "+e);
         }
-    }//GEN-LAST:event_etBuscarKeyReleased
+    }//GEN-LAST:event_etBuscarCategoriaKeyReleased
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         formIngresarProducto = new Form_IngresarProducto();
@@ -320,6 +345,7 @@ public class Form_Producto extends javax.swing.JPanel {
                 }
                 
             }
+        
         }
         
         
@@ -328,6 +354,33 @@ public class Form_Producto extends javax.swing.JPanel {
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
+
+    private void etBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_etBuscarActionPerformed
+
+    private void etBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_etBuscarKeyReleased
+        try
+        {
+            productosFiltrados.clear();
+            txt = etBuscarCategoria.getText().toUpperCase();
+            if(!productos.equals(null)){
+                for(ModelProduct p : productos){
+                    if((p.getNombre()).toUpperCase().contains(txt)
+                        || p.getCodigo().toUpperCase().contains(txt))
+                    {
+                        productosFiltrados.add(p);
+                    }
+                }
+            }
+            if(!productosFiltrados.isEmpty()){
+                limpiarTabla(tblDatos);
+                llenarTabla(tblDatos, productosFiltrados);
+            }
+        } catch (Exception e) {
+            System.err.println("Error\n---> "+e);
+        }
+    }//GEN-LAST:event_etBuscarKeyReleased
 
 //    public void llenarTabla(javax.swing.JTable tabla,ArrayList<ModelProduct> productos){ 
 //        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
@@ -356,7 +409,9 @@ public class Form_Producto extends javax.swing.JPanel {
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JTextField etBuscar;
+    private javax.swing.JTextField etBuscarCategoria;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblDatos;

@@ -23,8 +23,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -33,6 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -85,12 +89,19 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
         comprobar();
         productosFiltrados = new ArrayList();
         initComponents();
-        btnGuardarCambios.setVisible(false);
+        btnGuardarCambios.setVisible(true);
         llenarcbTP(); //Llenar comboBox TipoProducto
         llenarcbM(); //Llenar comboBox Marca
         llenarcbP(); //Llenar comboBox Proveedor
-        llenarcbTU(); //Llenar combobox TipoUnidad
+        llenarcbTU(); //Llenar combobox TipoUnidad}
+        CenteredFrame(this);
     }
+    public void CenteredFrame(javax.swing.JFrame objFrame){
+        Dimension objDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int iCoordX = (objDimension.width - objFrame.getWidth()) / 2;
+        int iCoordY = (objDimension.height - objFrame.getHeight()) / 2;
+        objFrame.setLocation(iCoordX, iCoordY); 
+    } 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -255,6 +266,17 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
         cbTipoProducto.setSelectedIndex(p.getTipoProducto());
         cbProveedor.setSelectedIndex(p.getProveedor());
         cbTipoUnidad.setSelectedIndex(p.getTipoUnidad());
+        byte[] imagen = p.getImagen();
+        BufferedImage bufferedImage = null;
+        InputStream inputStream = new ByteArrayInputStream(imagen);
+        try {
+            bufferedImage = ImageIO.read(inputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(Form_IngresarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ImageIcon mIcono = new ImageIcon(bufferedImage.getScaledInstance(300, 300, 0));
+        lblImagen.setIcon(mIcono);
+            
     }
     
 //    public void limpiarTabla(javax.swing.JTable tabla){
@@ -376,7 +398,6 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         btnGuardarCambios = new javax.swing.JButton();
         lblImagen = new javax.swing.JLabel();
-        btnLimpiar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -461,7 +482,7 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel11.setText("Foto:");
+        jLabel11.setText("Imagen:");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Examinar");
@@ -601,7 +622,7 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(PanelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -655,43 +676,44 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
         jpanelPruebaLayout.setHorizontalGroup(
             jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelPruebaLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jpanelPruebaLayout.createSequentialGroup()
                 .addGroup(jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPruebaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPruebaLayout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(103, 103, 103))))
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel16))
                     .addGroup(jpanelPruebaLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpanelPruebaLayout.createSequentialGroup()
                                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
                                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58)
-                                .addComponent(btnGuardarCambios)))
-                        .addGap(4, 4, 4)))
-                .addGap(48, 48, 48)
+                                .addComponent(btnGuardarCambios)))))
                 .addGroup(jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpanelPruebaLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addComponent(btnModificar)
                         .addGap(53, 53, 53)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPruebaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))))
         );
         jpanelPruebaLayout.setVerticalGroup(
             jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelPruebaLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGroup(jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpanelPruebaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 450, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)
+                        .addComponent(PanelIngresoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jpanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnIngresar)
@@ -703,46 +725,25 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
                         .addComponent(jLabel16)
                         .addContainerGap())
                     .addGroup(jpanelPruebaLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(300, Short.MAX_VALUE))))
+                        .addGap(114, 114, 114)
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-
-        btnLimpiar1.setBackground(new java.awt.Color(102, 102, 255));
-        btnLimpiar1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        btnLimpiar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLimpiar1.setText("Limpiar");
-        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiar1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(777, Short.MAX_VALUE)
-                .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(223, 223, 223))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(28, Short.MAX_VALUE)
-                    .addComponent(jpanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(160, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(532, Short.MAX_VALUE)
-                .addComponent(btnLimpiar1)
-                .addGap(61, 61, 61))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(9, Short.MAX_VALUE)
-                    .addComponent(jpanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(9, Short.MAX_VALUE)))
+                .addGap(0, 9, Short.MAX_VALUE)
+                .addComponent(jpanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -863,7 +864,7 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
             if(listo){
                 JOptionPane.showMessageDialog(this, "Registro actualizado correctamente");
                 recargar();
-                btnGuardarCambios.setVisible(false);
+                btnGuardarCambios.setVisible(true);
                 btnIngresar.setVisible(true);
                 llenarFormulario(p);
             }else{
@@ -879,10 +880,6 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_etNombreActionPerformed
 
-    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimpiar1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -894,7 +891,6 @@ public class Form_IngresarProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarCambios;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnLimpiar1;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cbMarca;
     private javax.swing.JComboBox<String> cbProveedor;
