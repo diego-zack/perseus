@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Form_Producto extends javax.swing.JPanel {
     
-    private ArrayList<ModelProduct> productos,productosFiltrados;
+    private ArrayList<ModelProduct> productos,productosFiltrados, filtradosCategoria;
     Conexion con = new Conexion();
     DatabaseConnection can;
     private ServiceProductos sp;
@@ -39,6 +39,7 @@ public class Form_Producto extends javax.swing.JPanel {
         mModeloTabla.addColumn("Precio");
         mModeloTabla.addColumn("Imagen");
         productosFiltrados = new ArrayList();
+        filtradosCategoria = new ArrayList();
         recargar();
         
     }
@@ -155,6 +156,7 @@ public class Form_Producto extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
+        buscarCategoria = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -225,6 +227,17 @@ public class Form_Producto extends javax.swing.JPanel {
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Buscar:");
 
+        buscarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarCategoriaActionPerformed(evt);
+            }
+        });
+        buscarCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarCategoriaKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,7 +256,9 @@ public class Form_Producto extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(etBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81)
+                        .addComponent(buscarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(323, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -259,7 +274,8 @@ public class Form_Producto extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etBuscar)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(441, 441, 441)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresar)
@@ -330,6 +346,14 @@ public class Form_Producto extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
 
+    private void buscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarCategoriaActionPerformed
+
+    private void buscarCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarCategoriaKeyReleased
+        
+    }//GEN-LAST:event_buscarCategoriaKeyReleased
+
 //    public void llenarTabla(javax.swing.JTable tabla,ArrayList<ModelProduct> productos){ 
 //        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
 //        limpiarTabla(tabla); 
@@ -356,6 +380,7 @@ public class Form_Producto extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JTextField buscarCategoria;
     private javax.swing.JTextField etBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

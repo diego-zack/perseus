@@ -38,6 +38,8 @@
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="etBuscar" min="-2" pref="166" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                      <Component id="buscarCategoria" min="-2" pref="207" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="323" max="32767" attributes="0"/>
@@ -60,6 +62,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="etBuscar" alignment="3" max="32767" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="buscarCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="441" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -215,6 +218,12 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="buscarCategoria">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarCategoriaActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscarCategoriaKeyReleased"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
