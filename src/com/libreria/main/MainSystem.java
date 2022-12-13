@@ -5,6 +5,9 @@ import com.libreria.form.asfddfadfs;
 import com.libreria.form.Form_Producto;
 import com.libreria.form.Form_Home;
 import com.libreria.form.Form_Proveedor;
+import com.libreria.form.Form_Egreso;
+import com.libreria.form.Form_4;
+import com.libreria.form.Form_5;
 import com.libreria.model.ModelUser;
 import java.awt.Color;
 import javax.swing.JComponent;
@@ -15,7 +18,10 @@ public class MainSystem extends javax.swing.JFrame {
     private Form_Home home;
     private Form_Producto form1;
     private Form_Proveedor form2;
-    private Form_Producto form3;
+    private Form_Egreso form3;
+    private Form_4 form4;
+    private Form_5 form5;
+
 
     public MainSystem(ModelUser user) {
         this.user = user;
@@ -24,6 +30,10 @@ public class MainSystem extends javax.swing.JFrame {
         home = new Form_Home();
         form1 = new Form_Producto();
         form2 = new Form_Proveedor();
+        form3 = new Form_Egreso();
+        form4 = new Form_4();
+        form5 = new Form_5();
+        
         //form3 = new Form_Home();
         menu.initMoving(MainSystem.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -36,7 +46,11 @@ public class MainSystem extends javax.swing.JFrame {
                 } else if (index == 2) {
                     setForm(form2);
                 } else if (index == 3) {
-                    //setForm(form3);
+                    setForm(form3);
+                } else if (index == 4) {
+                    setForm(form4);
+                } else if (index == 5) {
+                    setForm(form5);
                 }else if(index == 12){
                     System.exit(0);
                 }
